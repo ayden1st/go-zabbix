@@ -1,9 +1,5 @@
 package zabbix
 
-import (
-	"fmt"
-)
-
 // Item represents a Zabbix Item returned from the Zabbix API.
 //
 // See: https://www.zabbix.com/documentation/4.0/manual/api/reference/item/object
@@ -115,7 +111,8 @@ type ItemGetParams struct {
 // ErrEventNotFound is returned if the search result set is empty.
 // An error is returned if a transport, parsing or API error occurs.
 func (c *Session) GetItems(params ItemGetParams) ([]Item, error) {
-	items := make([]jItem, 0)
+	var items jItems
+	// items := make([]jItem, 0)
 	err := c.Get("item.get", params, &items)
 	if err != nil {
 		return nil, err
@@ -124,14 +121,14 @@ func (c *Session) GetItems(params ItemGetParams) ([]Item, error) {
 		return nil, ErrNotFound
 	}
 	// map JSON Events to Go Events
-	out := make([]Item, len(items))
-	for i, jitem := range items {
-		item, err := jitem.Item()
-		if err != nil {
-			return nil, fmt.Errorf("Error mapping Item %d in response: %v", i, err)
-		}
-		out[i] = *item
-	}
+	// out := make([]Item, len(items))
+	// for i, jitem := range items {
+	// 	item, err := jitem.Item()
+	// 	if err != nil {
+	// 		return nil, fmt.Errorf("Error mapping Item %d in response: %v", i, err)
+	// 	}
+	// 	out[i] = *item
+	// }
 
-	return out, nil
+	return items.Items()
 }

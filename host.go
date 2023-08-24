@@ -54,7 +54,6 @@ type Host struct {
 	// DisplayName is the visible name of the Host.
 	DisplayName string `json:"name,omitempty"`
 
-	ProxyID string `json:"proxy_hostid,omitempty"`
 	// Source is the origin of the Host and must be one of the HostSource
 	// constants.
 	Source int `json:"flags,string,omitempty"`
@@ -65,10 +64,10 @@ type Host struct {
 	// Groups contains all Host Groups assigned to the Host.
 	Groups []Hostgroup `json:"groups,omitempty"`
 
-	MaintenanceStatus string `json:"maintenance_status"`
-	MaintenanceID     string `json:"maintenanceid"`
-	MaintenanceType   string `json:"maintenance_type"`
-	MaintenanceFrom   string `json:"maintenance_from"`
+	MaintenanceStatus string `json:"maintenance_status,omitempty"`
+	MaintenanceID     string `json:"maintenanceid,omitempty"`
+	MaintenanceType   string `json:"maintenance_type,omitempty"`
+	MaintenanceFrom   string `json:"maintenance_from,omitempty"`
 
 	// Status of the host
 	Status int `json:"status,string"`
@@ -79,24 +78,24 @@ type Host struct {
 	Available int `json:"available,string,omitempty"`
 
 	// Description of host
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 
 	// Inventory mode
-	InventoryMode int `json:"inventory_mode"`
+	InventoryMode int `json:"inventory_mode,string,omitempty"`
 
 	// HostID of the proxy managing this host
-	ProxyHostID string `json:"proxy_hostid"`
+	ProxyHostID string `json:"proxy_hostid,omitempty"`
 
 	// How should we connect to host
-	TLSConnect int `json:"tls_connect,string"`
+	TLSConnect int `json:"tls_connect,string,omitempty"`
 
 	// What type of connections we accept from host
-	TLSAccept int `json:"tls_accept,string"`
+	TLSAccept int `json:"tls_accept,string,omitempty"`
 
-	TLSIssuer      string `json:"tls_issuer"`
-	TLSSubject     string `json:"tls_subject"`
-	TLSPSKIdentity string `json:"tls_psk_identity"`
-	TLSPSK         string `json:"tls_psk"`
+	TLSIssuer      string `json:"tls_issuer,omitempty"`
+	TLSSubject     string `json:"tls_subject,omitempty"`
+	TLSPSKIdentity string `json:"tls_psk_identity,omitempty"`
+	TLSPSK         string `json:"tls_psk,omitempty"`
 }
 
 // HostGetParams represent the parameters for a `host.get` API call.
@@ -132,6 +131,9 @@ type HostGetParams struct {
 
 	// ItemIDs filters search results to hosts with the given Item IDs.
 	ItemIDs []string `json:"itemids,omitempty"`
+
+	// TriggerIDs filters search results to hosts with the given Triggers IDs.
+	TriggerIDs []string `json:"triggerids,omitempty"`
 
 	// MaintenanceIDs filters search results to hosts that are affected by the
 	// given Maintenance IDs

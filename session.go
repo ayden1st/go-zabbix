@@ -3,14 +3,13 @@ package zabbix
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
 // ErrNotFound describes an empty result set for an API call.
-var ErrNotFound = errors.New("No results were found matching the given search parameters")
+var ErrNotFound = fmt.Errorf("no results were found matching the given search parameters")
 
 // A Session is an authenticated Zabbix JSON-RPC API client. It must be
 // initialized and connected with NewSession.
@@ -47,7 +46,7 @@ func (c *Session) login(username, password string) error {
 	// get Zabbix API version
 	_, err := c.GetVersion()
 	if err != nil {
-		return fmt.Errorf("Failed to retrieve Zabbix API version: %v", err)
+		return fmt.Errorf("failed to retrieve Zabbix API version: %v", err)
 	}
 
 	// login to API
@@ -134,7 +133,7 @@ func (c *Session) Do(req *Request) (resp *Response, err error) {
 	defer res.Body.Close()
 
 	// read response body
-	b, err = ioutil.ReadAll(res.Body)
+	b, err = io.ReadAll(res.Body)
 	if err != nil {
 		return nil, fmt.Errorf("Error reading response: %v", err)
 	}

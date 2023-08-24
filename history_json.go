@@ -72,7 +72,7 @@ func (c jHistories) Histories() ([]History, error) {
 		for i, jhistory := range c {
 			history, err := jhistory.History()
 			if err != nil {
-				return nil, fmt.Errorf("Error unmarshalling History %d in JSON data: %v", i, err)
+				return nil, fmt.Errorf("error unmarshalling History %d in JSON data: %v", i, err)
 			}
 			histories[i] = *history
 		}

@@ -1,9 +1,5 @@
 package zabbix
 
-import (
-	"fmt"
-)
-
 // History represents a Zabbix History returned from the Zabbix API.
 //
 // See: https://www.zabbix.com/documentation/4.0/manual/api/reference/history/object
@@ -63,7 +59,8 @@ type HistoryGetParams struct {
 // ErrEventNotFound is returned if the search result set is empty.
 // An error is returned if a transport, parsing or API error occurs.
 func (c *Session) GetHistories(params HistoryGetParams) ([]History, error) {
-	histories := make([]jHistory, 0)
+	var histories jHistories
+	// histories := make([]jHistory, 0)
 	err := c.Get("history.get", params, &histories)
 	if err != nil {
 		return nil, err
@@ -71,15 +68,15 @@ func (c *Session) GetHistories(params HistoryGetParams) ([]History, error) {
 	if len(histories) == 0 {
 		return nil, ErrNotFound
 	}
-	// map JSON Events to Go Events
-	out := make([]History, len(histories))
-	for i, jhistory := range histories {
-		history, err := jhistory.History()
-		if err != nil {
-			return nil, fmt.Errorf("Error mapping History %d in response: %v", i, err)
-		}
-		out[i] = *history
-	}
+	// // map JSON Events to Go Events
+	// out := make([]History, len(histories))
+	// for i, jhistory := range histories {
+	// 	history, err := jhistory.History()
+	// 	if err != nil {
+	// 		return nil, fmt.Errorf("error mapping History %d in response: %v", i, err)
+	// 	}
+	// 	out[i] = *history
+	// }
 
-	return out, nil
+	return histories.Histories()
 }

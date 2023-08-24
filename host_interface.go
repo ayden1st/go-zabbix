@@ -50,7 +50,7 @@ type HostInterface struct {
 	Type int `json:"type,string"`
 
 	// Whether the connection should be made via IP.
-	UseIP ZBXBoolean `json:"useip,string"`
+	UseIP int `json:"useip,string"`
 }
 
 type HostInterfaceGetParams struct {

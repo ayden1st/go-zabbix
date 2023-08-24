@@ -2,9 +2,7 @@
 
 Go bindings for the Zabbix API
 
-[![go report card](https://goreportcard.com/badge/github.com/cavaliercoder/go-zabbix "go report card")](https://goreportcard.com/report/github.com/cavaliercoder/go-zabbix)
-[![GPL license](https://img.shields.io/badge/license-GPL-brightgreen.svg)](https://opensource.org/licenses/gpl-license)
-[![GoDoc](https://godoc.org/github.com/cavaliercoder/go-zabbix?status.svg)](https://godoc.org/github.com/cavaliercoder/go-zabbix)
+Fork from https://github.com/cavaliercoder/go-zabbix
 
 ## Overview
 
@@ -30,7 +28,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/cavaliercoder/go-zabbix"
+	"github.com/ayden1st/go-zabbix"
 )
 
 func main() {

@@ -20,7 +20,7 @@ type JMaintenance struct {
 // Timeperiods is a private map for the Zabbix API Maintenance object.
 // See: https://www.zabbix.com/documentation/2.2/manual/api/reference/maintenance/object
 type Timeperiods struct {
-	TimeperiodType int `json:"timeperiod_type,int"`
+	TimeperiodType int `json:"timeperiod_type,string"`
 	Every          int `json:"every,string"`
 	Dayofweek      int `json:"dayofweek,string"`
 	StartTime      int `json:"start_time,string"`
