@@ -5,11 +5,6 @@ import (
 )
 
 const (
-	InterfaceUseIP  = 1
-	InterfaceUseDNS = 0
-)
-
-const (
 	PassiveProxy = 6
 	ActiveProxy  = 5
 )
@@ -84,11 +79,12 @@ func (c *Session) UpdateProxy(params ProxyUpdateParams) (ProxyResult, error) {
 
 func (c *Session) CreateProxy(params ProxyCreateParams) (ProxyResult, error) {
 	if params.ProxyStatus != PassiveProxy && params.ProxyStatus != ActiveProxy {
-		return ProxyResult{}, fmt.Errorf("Proxy status must be 5 or 6")
+		return ProxyResult{}, fmt.Errorf("proxy status must be 5 or 6")
 	}
 	if params.ProxyStatus == PassiveProxy && params.Interface == (ProxyInterface{}) {
-		return ProxyResult{}, fmt.Errorf("Passive proxy must settings interface")
+		return ProxyResult{}, fmt.Errorf("passive proxy must settings interface")
 	}
+
 	resp := ProxyResult{}
 	err := c.Get("proxy.create", params, &resp)
 	if err != nil {
